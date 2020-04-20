@@ -3,7 +3,6 @@ namespace MetricsAlarm;
 
 use MetricsAlarm\Alarms\AbstractAlarm;
 use MetricsAlarm\Changes\AbstractChange;
-use MetricsAlarm\Senders\ISender;
 
 class Message
 {
@@ -17,9 +16,9 @@ class Message
         $this->change = $change;
     }
 
-    public function isAvailable(ISender $sender)
+    public function isAvailable(int $sendToType): bool
     {
-        return ($sender->getSendToType() | $this->alarm->getSendToType()) === $this->alarm->getSendToType();
+        return ($sendToType | $this->alarm->getSendToType()) === $this->alarm->getSendToType();
     }
 
     public function getTitle(): string

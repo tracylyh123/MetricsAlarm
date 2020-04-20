@@ -12,14 +12,14 @@ trait AlarmableTrait
 
     public function addSender(ISender $sender)
     {
-        $this->senders[] = $sender;
+        $this->senders[$sender->getSendToType()] = $sender;
     }
 
     public function send(Message $message)
     {
         if ($this instanceof User) {
-            foreach ($this->senders as $sender) {
-                if ($message->isAvailable($sender)) {
+            foreach ($this->senders as $type => $sender) {
+                if ($message->isAvailable($type)) {
                     $sender->send($this, $message);
                 }
             }
