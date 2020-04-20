@@ -23,10 +23,12 @@ class MetricChangedHandlerTest extends TestCase
         $sender1->method('send')->will($this->returnCallback(function () {
             echo 'sent to email box' . PHP_EOL;
         }));
+        $sender1->method('getSendToType')->willReturn(1);
         $sender2 = $this->createMock(ISender::class);
         $sender2->method('send')->will($this->returnCallback(function () {
             echo 'sent to message box' . PHP_EOL;
         }));
+        $sender2->method('getSendToType')->willReturn(2);
         $user->addSender($sender1);
         $user->addSender($sender2);
 
