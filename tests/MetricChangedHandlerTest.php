@@ -27,6 +27,7 @@ class MetricChangedHandlerTest extends TestCase
             ['1', $user1],
             ['2', $user2]
         ]));
+
         $sender1 = $this->createMock(ISender::class);
         $sender1->method('send')->will($this->returnCallback(function () {
             echo 'sent to email box' . PHP_EOL;
