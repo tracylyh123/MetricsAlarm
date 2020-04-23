@@ -24,6 +24,7 @@ class AlarmAvailable extends AbstractCriteria
 
     public function createMessage(): Message
     {
-        return new Message($this->alarm, $this->change);
+        $message = new Message($this->alarm);
+        return $message->addBody($this->change->__toString());
     }
 }

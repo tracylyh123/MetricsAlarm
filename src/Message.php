@@ -2,18 +2,16 @@
 namespace MetricsAlarm;
 
 use MetricsAlarm\Alarms\AbstractAlarm;
-use MetricsAlarm\Changes\AbstractChange;
 
 class Message
 {
     protected $alarm;
 
-    protected $change;
+    protected $body = [];
 
-    public function __construct(AbstractAlarm $alarm, AbstractChange $change)
+    public function __construct(AbstractAlarm $alarm)
     {
         $this->alarm = $alarm;
-        $this->change = $change;
     }
 
     public function isAvailable(int $sendToType): bool
@@ -26,8 +24,14 @@ class Message
         return $this->alarm->__toString();
     }
 
-    public function getBody(): string
+    public function getBody(): array
     {
-        return $this->change->__toString();
+        return $this->body;
+    }
+
+    public function addBody(string $body): Message
+    {
+        $this->body[] = $body;
+        return $this;
     }
 }
