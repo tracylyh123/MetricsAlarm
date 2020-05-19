@@ -1,27 +1,28 @@
 <?php
 namespace MetricsAlarm;
 
-use MetricsAlarm\Alarms\AbstractAlarm;
-
 class Message
 {
-    protected $alarm;
+    protected $title;
+
+    protected $sendToType;
 
     protected $body = [];
 
-    public function __construct(AbstractAlarm $alarm)
+    public function __construct(string $title, int $sendToType)
     {
-        $this->alarm = $alarm;
+        $this->title = $title;
+        $this->sendToType = $sendToType;
     }
 
-    public function isAvailable(int $sendToType): bool
+    public function isMatch(int $sendToType): bool
     {
-        return ($sendToType | $this->alarm->getSendToType()) === $this->alarm->getSendToType();
+        return ($sendToType | $this->sendToType) === $this->sendToType;
     }
 
     public function getTitle(): string
     {
-        return $this->alarm->__toString();
+        return $this->title;
     }
 
     public function getBody(): array

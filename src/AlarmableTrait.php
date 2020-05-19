@@ -19,7 +19,7 @@ trait AlarmableTrait
     {
         if ($this instanceof User) {
             foreach ($this->senders as $type => $sender) {
-                if ($message->isAvailable($type)) {
+                if ($message->isMatch($type)) {
                     $sender->send($this, $message);
                 }
             }
