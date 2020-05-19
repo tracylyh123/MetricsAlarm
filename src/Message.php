@@ -15,7 +15,7 @@ class Message
         $this->sendToType = $sendToType;
     }
 
-    public function isMatch(int $sendToType): bool
+    public function canBeSentTo(int $sendToType): bool
     {
         return ($sendToType | $this->sendToType) === $this->sendToType;
     }
